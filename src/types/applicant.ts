@@ -3,16 +3,14 @@ export interface Applicant {
   name: string;
   email: string;
   phone: string;
-  // Details Column 1
   currentOrganization: string;
   skills: string[];
   availableFrom: string;
   currentSalary: string;
   noticePeriod: string;
   fullAddress: string;
-  resume: string; // URL or filename
+  resume: string;
   totalExperience: string;
-  // Details Column 2
   summary: string;
   currentEmploymentStatus: string;
   dateOfBirth: string;
@@ -21,4 +19,5 @@ export interface Applicant {
   status: string;
   salaryType: "Annual" | "Monthly" | "Hourly";
   languageSkills: string[];
+  lastModified: string;
 }

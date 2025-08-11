@@ -1,0 +1,41 @@
+/* Toggle Switch Component Styles */
+.toggle-switch-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-switch-input {
+  display: none;
+}
+
+.toggle-switch-background {
+  width: 30px;
+  height: 16px;
+  background-color: #ccc;
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch-background.on {
+  background-color: #1170ca;
+}
+
+.toggle-switch-knob {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  transition: left 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch-background.on .toggle-switch-knob {
+  left: 16.5px;
+}

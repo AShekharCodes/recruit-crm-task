@@ -3,31 +3,13 @@ import { useStore } from "../store/store";
 import { getApplicants } from "../services/applicant.service";
 import "../styles/Dashboard.css";
 import { Applicant } from "../types/applicant";
-
-const ToggleSwitch = ({
-  isOn,
-  onToggle,
-}: {
-  isOn: boolean;
-  onToggle: (value: boolean) => void;
-}) => {
-  return (
-    <label className="toggle-switch-label">
-      <input
-        type="checkbox"
-        checked={isOn}
-        onChange={(e) => onToggle(e.target.checked)}
-        className="toggle-switch-input"
-      />
-      <span className={`toggle-switch-background ${isOn ? "on" : ""}`}>
-        <span className="toggle-switch-knob" />
-      </span>
-    </label>
-  );
-};
+import Navbar from "../components/Navbar";
+import ToggleSwitch from "../components/ToggleSwitch";
+import EditApplicantModal from "../components/EditApplicantModal";
 
 const Dashboard = () => {
-  const { applicants, setApplicants } = useStore();
+  const { applicants, setApplicants, editingApplicant, setEditingApplicant } =
+    useStore();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [activeMainTab, setActiveMainTab] = useState("All Details");
   const [activeSideTab, setActiveSideTab] = useState("All");
@@ -38,12 +20,23 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await getApplicants();
-      setApplicants(data);
-      setIsLoading(false);
+      try {
+        const data = await getApplicants();
+        setApplicants(data);
+      } catch (error) {
+        console.error("Failed to fetch applicants:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [setApplicants]);
+
+  useEffect(() => {
+    if (currentIndex >= applicants.length && applicants.length > 0) {
+      setCurrentIndex(applicants.length - 1);
+    }
+  }, [applicants, currentIndex]);
 
   const candidate: Applicant | undefined = applicants[currentIndex];
 
@@ -53,7 +46,7 @@ const Dashboard = () => {
       setTimeout(() => {
         setCurrentIndex(currentIndex + 1);
         setIsLoading(false);
-      }, 500);
+      }, 500); // Simulate loading
     }
   };
 
@@ -63,7 +56,7 @@ const Dashboard = () => {
       setTimeout(() => {
         setCurrentIndex(currentIndex - 1);
         setIsLoading(false);
-      }, 500);
+      }, 500); // Simulate loading
     }
   };
 
@@ -72,6 +65,18 @@ const Dashboard = () => {
     if (isSidebarExpanded && !(e.target as Element).closest(".sidebar")) {
       setIsSidebarExpanded(false);
     }
+  };
+
+  const formatTimestamp = (isoString: string | undefined) => {
+    if (!isoString) return "Not available";
+    return new Date(isoString).toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
   };
 
   const sidebarItems = [
@@ -112,35 +117,16 @@ const Dashboard = () => {
         </div>
       </aside>
       <div className="main-container">
-        <nav className="navbar">
-          <div className="searchbar">
-            <i className="bx bx-search"></i>
-            <input type="text" placeholder="Search Pipedrive" />
-          </div>
-          <img src="/assets/images/logo.png" alt="Logo" />
-          <div className="user-section">
-            <div className="action-icons">
-              <i className="bx bx-plus"></i>
-              <div className="vertical-divider"></div>
-              <i className="bx bx-envelope"></i>
-              <i className="bx bx-phone"></i>
-              <i className="bx bx-calendar"></i>
-            </div>
-            <div className="avatar">
-              <img src="/assets/images/avatar.png" alt="User Avatar" />
-            </div>
-            <div className="avatar-detail">
-              <span className="name">Phyllis Yang</span>
-              <span className="role">Silicon Links Inc</span>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
         <div className="content-sections">
           <section className="main-section">
             <header className="section-header">
               <span>
-                {"Candidates >"}{" "}
-                {candidate ? `${candidate.name} - ID ${candidate.id}` : "..."}
+                <span className="candidate-indicator">{"Candidates >"} </span>
+                {candidate ? candidate.name : "Name"} -{" "}
+                <span className="candidate-id">
+                  ID-{candidate ? candidate.id : "ID"}
+                </span>
               </span>
               <div className="header-actions">
                 <span className="candidate-counter">
@@ -160,6 +146,7 @@ const Dashboard = () => {
                 >
                   Next
                 </button>
+                <button>Request Profile Update</button>
               </div>
             </header>
 
@@ -171,6 +158,10 @@ const Dashboard = () => {
                       src="/assets/images/candidate_avatar.png"
                       className="avatar-large"
                       alt="Candidate Avatar"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://placehold.co/80x80/eeeeee/333333?text=CA";
+                      }}
                     />
                     <div className="profile-section">
                       <div className="profile-name-social">
@@ -201,7 +192,11 @@ const Dashboard = () => {
                       <i className="bx bx-star"></i>
                       <i className="bx bx-heart"></i>
                       <i className="bx bx-bell"></i>
-                      <i className="bx bx-pencil"></i>
+                      <i
+                        className="bx bx-pencil"
+                        onClick={() => setEditingApplicant(candidate)}
+                        style={{ cursor: "pointer" }}
+                      ></i>
                     </div>
                   </div>
                 </header>
@@ -225,7 +220,7 @@ const Dashboard = () => {
                     </span>
                     <span>
                       <i className="bx bx-time"></i>
-                      July 14, 2023, 4:04 PM
+                      {formatTimestamp(candidate.lastModified)}
                     </span>
                   </div>
                 </header>
@@ -338,6 +333,10 @@ const Dashboard = () => {
                             src="/assets/images/candidate_avatar.png"
                             alt=""
                             className="job-card-image"
+                            onError={(e) => {
+                              e.currentTarget.src =
+                                "https://placehold.co/40x40/eeeeee/333333?text=CA";
+                            }}
                           />
                           <div className="job-card-title-container">
                             <span className="job-card-title">
@@ -471,6 +470,8 @@ const Dashboard = () => {
           </section>
         </div>
       </div>
+      {/* Rendering the modal conditionally */}
+      {editingApplicant && <EditApplicantModal />}
     </div>
   );
 };

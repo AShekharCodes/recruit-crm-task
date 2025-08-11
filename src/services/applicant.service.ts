@@ -1,6 +1,6 @@
 import { Applicant } from "../types/applicant";
 
-// Expanded mock data for 5 candidates
+// Expanded mock data for 5 candidates with lastModified timestamp
 const applicants: Applicant[] = [
   {
     id: 231,
@@ -24,6 +24,7 @@ const applicants: Applicant[] = [
     status: "In Review",
     salaryType: "Annual",
     languageSkills: ["English (Native)", "Spanish (Conversational)"],
+    lastModified: "2023-07-14T16:04:00Z",
   },
   {
     id: 232,
@@ -47,6 +48,7 @@ const applicants: Applicant[] = [
     status: "Shortlisted",
     salaryType: "Annual",
     languageSkills: ["English (Native)", "French (Basic)"],
+    lastModified: "2023-07-12T11:30:00Z",
   },
   {
     id: 233,
@@ -70,6 +72,7 @@ const applicants: Applicant[] = [
     status: "Interview Scheduled",
     salaryType: "Annual",
     languageSkills: ["English (Fluent)", "Hindi (Native)"],
+    lastModified: "2023-07-10T09:00:00Z",
   },
   {
     id: 234,
@@ -93,6 +96,7 @@ const applicants: Applicant[] = [
     status: "New",
     salaryType: "Annual",
     languageSkills: ["English (Native)"],
+    lastModified: "2023-07-15T14:20:00Z",
   },
   {
     id: 235,
@@ -120,6 +124,7 @@ const applicants: Applicant[] = [
       "English (Fluent)",
       "Portuguese (Conversational)",
     ],
+    lastModified: "2023-07-11T18:45:00Z",
   },
 ];
 
@@ -130,9 +135,17 @@ export async function getApplicants(): Promise<Applicant[]> {
 
 // Simulates updating an applicant
 export async function updateApplicant(updated: Applicant): Promise<Applicant> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const index = applicants.findIndex((a) => a.id === updated.id);
-    if (index !== -1) applicants[index] = updated;
-    setTimeout(() => resolve(updated), 300);
+    if (index !== -1) {
+      const applicantToUpdate = {
+        ...updated,
+        lastModified: new Date().toISOString(),
+      };
+      applicants[index] = applicantToUpdate;
+      setTimeout(() => resolve(applicantToUpdate), 300);
+    } else {
+      reject(new Error("Applicant not found"));
+    }
   });
 }
