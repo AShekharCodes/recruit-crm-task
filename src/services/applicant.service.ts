@@ -1,7 +1,10 @@
 import { Applicant } from "../types/applicant";
 
-// Expanded mock data for 5 candidates with lastModified timestamp
-const applicants: Applicant[] = [
+// Define a key for localStorage
+const LOCAL_STORAGE_KEY = "applicantsData";
+
+// The initial data to seed localStorage if it's empty
+const initialApplicants: Applicant[] = [
   {
     id: 231,
     name: "John Doe",
@@ -128,21 +131,49 @@ const applicants: Applicant[] = [
   },
 ];
 
+// Function to initialize and get data from localStorage
+const getStoredApplicants = (): Applicant[] => {
+  try {
+    const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedData) {
+      return JSON.parse(storedData);
+    } else {
+      // If no data, initialize localStorage with the default set
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(initialApplicants)
+      );
+      return initialApplicants;
+    }
+  } catch (error) {
+    console.error("Could not access localStorage:", error);
+    // Fallback to initial data if localStorage is unavailable
+    return initialApplicants;
+  }
+};
+
 // Simulates fetching all applicants with a delay
 export async function getApplicants(): Promise<Applicant[]> {
+  const applicants = getStoredApplicants();
   return new Promise((resolve) => setTimeout(() => resolve(applicants), 500));
 }
 
-// Simulates updating an applicant
+// Simulates updating an applicant and persisting to localStorage
 export async function updateApplicant(updated: Applicant): Promise<Applicant> {
   return new Promise((resolve, reject) => {
+    const applicants = getStoredApplicants();
     const index = applicants.findIndex((a) => a.id === updated.id);
+
     if (index !== -1) {
       const applicantToUpdate = {
         ...updated,
-        lastModified: new Date().toISOString(),
+        lastModified: new Date().toISOString(), // Update the timestamp
       };
       applicants[index] = applicantToUpdate;
+
+      // Save the entire updated list back to localStorage
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(applicants));
+
       setTimeout(() => resolve(applicantToUpdate), 300);
     } else {
       reject(new Error("Applicant not found"));
