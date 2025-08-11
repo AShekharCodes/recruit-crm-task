@@ -65,6 +65,7 @@
   width: 50px;
   text-align: center;
   font-size: 20px;
+  transition: background-color 0.2s; /* Added for smooth transition */
 }
 
 .sidebar .sidebar-item:hover {
@@ -92,6 +93,11 @@
   transition: margin-left 0.35s ease-in-out;
 }
 
+.sidebar.expanded + .main-container {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+}
+
 .sidebar.expanded + .main-container::before {
   content: "";
   position: fixed;
@@ -101,7 +107,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 99;
-  display: block;
+  display: none; /* Initially hidden, shown via media query */
   backdrop-filter: blur(5px);
 }
 
@@ -180,6 +186,7 @@
   cursor: pointer;
   flex-shrink: 0;
   transition: background-color 0.2s;
+  font-size: 12px;
 }
 
 .main-section .section-header button:hover:not(:disabled) {
@@ -278,6 +285,7 @@
   padding: 5px;
   border-radius: 5px;
   font-size: 20px;
+  align-self: center;
   color: #6c757d;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
@@ -302,6 +310,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .contact-info p {
@@ -403,6 +412,7 @@
 .detail-value {
   color: #6c757d;
   font-size: 13px;
+  word-break: break-word;
 }
 
 .summary-text {
@@ -577,6 +587,7 @@
   gap: 10px;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .job-card-image-container {
@@ -805,4 +816,159 @@
 /* General Scrollbar Hiding */
 ::-webkit-scrollbar {
   display: none;
+}
+
+.sidebar.expanded .sidebar-item.active {
+  background-color: white;
+  color: #143e6f;
+  border-radius: 10px;
+}
+
+/* Ensure active state is not overridden by hover on non-active items */
+.sidebar.expanded .sidebar-item.active:hover {
+  background-color: white;
+  color: #143e6f;
+}
+
+/* For tablets and smaller desktops */
+@media (max-width: 1200px) {
+  .content-sections {
+    flex-direction: column;
+    height: auto; /* Allow content to determine height */
+  }
+
+  .main-section,
+  .side-section {
+    flex: none;
+    width: 100%;
+    max-height: none; /* Remove fixed height constraints */
+  }
+
+  .side-section {
+    border-left: none;
+    border-top: 1px solid #dee2e6;
+  }
+}
+
+/* For smaller tablets */
+@media (max-width: 992px) {
+  .candidate-details {
+    grid-template-columns: 1fr;
+    gap: 15px 0;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .profile-actions {
+    align-self: flex-start;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .job-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .sidebar.expanded + .main-container::before {
+    display: block; /* Show overlay on mobile when sidebar is open */
+  }
+
+  .main-container {
+    margin-left: 50px !important; /* Override expanded margin */
+    width: calc(100% - 50px) !important;
+  }
+
+  .main-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .main-section .section-header .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-section .section-header .header-actions button {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .contact-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .assigned-jobs-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* For smaller mobile devices */
+@media (max-width: 480px) {
+  .profile-name-social {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profile-role-location {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .profile-role-location span:nth-child(2) {
+    display: none; /* Hide the separator */
+  }
+
+  .avatar-large {
+    width: 60px;
+    height: 60px;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .detail-label {
+    flex-basis: auto; /* Remove fixed basis */
+  }
+
+  .contact-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }

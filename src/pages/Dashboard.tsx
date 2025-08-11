@@ -109,7 +109,12 @@ const Dashboard = () => {
         </button>
         <div className="sidebar-items">
           {sidebarItems.map((item, index) => (
-            <div key={index} className="sidebar-item">
+            <div
+              key={index}
+              className={`sidebar-item ${
+                item.label === "Candidates" ? "active" : ""
+              }`}
+            >
               <i className={`bx ${item.icon}`}></i>
               {isSidebarExpanded && <span>{item.label}</span>}
             </div>
