@@ -14,7 +14,8 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background: #143e6f;
-  transition: width 0.3s;
+  /* Smoother transition */
+  transition: width 0.35s ease-in-out;
   position: fixed;
   height: 100%;
   display: flex;
@@ -87,7 +88,8 @@
   margin-left: 50px;
   width: calc(100% - 50px);
   background: #f8f9fa;
-  transition: margin-left 0.3s;
+  /* Smoother transition */
+  transition: margin-left 0.35s ease-in-out;
 }
 
 .sidebar.expanded + .main-container::before {
@@ -223,8 +225,10 @@
   gap: 15px;
 }
 
-.profile-name-social h2 {
+.profile-name-social p {
   margin: 0;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .social-icons-container {
@@ -275,6 +279,13 @@
   border-radius: 5px;
   font-size: 20px;
   color: #6c757d;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.profile-actions .action-icons i:hover {
+  background-color: #f1f1f1;
+  color: #343a40;
 }
 
 /* Contact Header */
@@ -463,6 +474,7 @@
 
 .tab-content {
   padding: 10px;
+  min-height: 300px;
   background-color: white;
   font-size: 14px;
   color: #495057;
@@ -664,18 +676,24 @@
 
 .side-section .section-header {
   display: flex;
-  gap: 20px;
-  padding: 10px;
+  gap: 15px; /* Adjusted gap */
+  padding: 15px;
   border-bottom: 1px solid #dee2e6;
 }
 
 .side-section .section-header i {
-  font-size: 18px;
-  color: #2570ca;
-  background-color: #e6f1ff;
   padding: 8px;
   border-radius: 50%;
+  font-size: 20px;
+  color: #2570ca;
   cursor: pointer;
+  background-color: #e6f1ff;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.side-section .section-header i:hover {
+  background-color: #f1f1f1;
+  color: #343a40;
 }
 
 .side-section .tab-bar button {

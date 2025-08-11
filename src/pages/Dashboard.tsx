@@ -165,7 +165,7 @@ const Dashboard = () => {
                     />
                     <div className="profile-section">
                       <div className="profile-name-social">
-                        <h2>{candidate.name}</h2>
+                        <p>{candidate.name}</p>
                         <div className="social-icons-container">
                           <i className="bx bxl-facebook"></i>
                           <i className="bx bxl-linkedin"></i>

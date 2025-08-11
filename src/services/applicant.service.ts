@@ -3,7 +3,7 @@ import { Applicant } from "../types/applicant";
 // Define a key for localStorage
 const LOCAL_STORAGE_KEY = "applicantsData";
 
-// The initial data to seed localStorage if it's empty
+// Mock data
 const initialApplicants: Applicant[] = [
   {
     id: 231,
@@ -158,7 +158,7 @@ export async function getApplicants(): Promise<Applicant[]> {
   return new Promise((resolve) => setTimeout(() => resolve(applicants), 500));
 }
 
-// Simulates updating an applicant and persisting to localStorage
+// Simulates updating an applicant and persisting to localStorage as we dont have a backend
 export async function updateApplicant(updated: Applicant): Promise<Applicant> {
   return new Promise((resolve, reject) => {
     const applicants = getStoredApplicants();
@@ -171,7 +171,6 @@ export async function updateApplicant(updated: Applicant): Promise<Applicant> {
       };
       applicants[index] = applicantToUpdate;
 
-      // Save the entire updated list back to localStorage
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(applicants));
 
       setTimeout(() => resolve(applicantToUpdate), 300);

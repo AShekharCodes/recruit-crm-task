@@ -132,7 +132,6 @@
   display: flex;
   justify-content: flex-end;
   z-index: 10000;
-  animation: fadeIn 0.3s ease-out;
 }
 
 /* Drawer Panel */
@@ -140,12 +139,13 @@
   width: 280px;
   background: white;
   height: 100%;
-  padding: 20px;
+  padding: 10px 20px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  animation: slideIn 0.3s ease-out;
   overflow-y: auto;
 }
 
@@ -241,6 +241,20 @@
 
 .action-item:hover {
   background: #f8f9fa;
+  transform: scale(0.9);
+}
+
+.action-item:first-child {
+  background-color: #1170ca;
+}
+
+.action-item:first-child i,
+.action-item:first-child span {
+  color: white;
+}
+
+.action-item:first-child:hover {
+  background-color: #0f5a9c;
 }
 
 .action-item i {
@@ -253,13 +267,35 @@
   color: #333;
 }
 
-/* Animations */
+.overlay-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+.overlay-fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+.drawer-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+.drawer-slide-out {
+  animation: slideOut 0.3s ease-out forwards;
+}
+
+/* Keyframes */
 @keyframes fadeIn {
   from {
-    background: rgba(0, 0, 0, 0);
+    opacity: 0;
   }
   to {
-    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -269,5 +305,14 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 }

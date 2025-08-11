@@ -3,9 +3,23 @@ import "../styles/Navbar.css";
 
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  const toggleDrawer = () => setIsDrawerOpen((prev) => !prev);
-  const closeDrawer = () => setIsDrawerOpen(false);
+  const toggleDrawer = () => {
+    if (isDrawerOpen) {
+      handleClose();
+    } else {
+      setIsDrawerOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      setIsDrawerOpen(false);
+      setIsAnimatingOut(false);
+    }, 300); // Match animation duration
+  };
 
   return (
     <>
@@ -62,8 +76,18 @@ const Navbar = () => {
 
       {/* Mobile Drawer */}
       {isDrawerOpen && (
-        <div className="drawer-overlay" onClick={closeDrawer}>
-          <div className="drawer" onClick={(e) => e.stopPropagation()}>
+        <div
+          className={`drawer-overlay ${
+            isAnimatingOut ? "overlay-fade-out" : "overlay-fade-in"
+          }`}
+          onClick={handleClose}
+        >
+          <div
+            className={`drawer ${
+              isAnimatingOut ? "drawer-slide-out" : "drawer-slide-in"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Drawer Header with Avatar (direct img) and Close */}
             <div className="drawer-header">
               <div className="avatar-row">
@@ -81,7 +105,7 @@ const Navbar = () => {
                   <span className="role">Silicon Links Inc</span>
                 </div>
               </div>
-              <button className="close-btn" onClick={closeDrawer}>
+              <button className="close-btn" onClick={handleClose}>
                 <i className="bx bx-x"></i>
               </button>
             </div>
