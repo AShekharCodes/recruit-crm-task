@@ -8,7 +8,7 @@ The application is hosted at [applicard.netlify.app](https://applicard.netlify.a
 
 ## Features
 
-- **Responsive UI**: The interface adapts seamlessly across various devices and screen sizes, from mobile to desktop, with a flexible layout using media queries.
+- **Responsive UI**: The interface adapts seamlessly across various devices and screen sizes, from mobile to desktop, with a flexible layout using media queries. Everything works including the navbar drawer and sidebar and both have different views for different platforms.
 - **Candidate Details Display**: Displays comprehensive candidate information, including personal details, experience, skills, and application status, fetched from a mocked API and stored in localStorage.
 - **Edit Details Functionality**: Allows editing of candidate details via a modal form, with validation, state management via Zustand, and persistence to localStorage.
 - **Navigation and Tabs**: Implements a sidebar with navigation items and main/side tabs for organizing content, with only the visible "All Details" tab fully developed as per requirements.
