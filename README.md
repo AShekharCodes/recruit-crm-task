@@ -105,8 +105,10 @@ src/
   - Integrated `ConfirmationModal` for discarding unsaved changes, enhancing UX.
 - **Code Quality**:
   - Followed TypeScript best practices for type safety.
+  - Added comments in crucial areas for clarity.
   - Modularized components for reusability and maintainability.
   - Conducted manual testing to verify functionality, responsiveness, and edge cases (e.g., invalid email, empty fields).
+  - AI tools were used to arrange the CSS files after project completion ensuring neatly arranged CSS files.
 - **Deployment**:
   - Deployed to Netlify for easy access and testing, ensuring the application is publicly available.
 
