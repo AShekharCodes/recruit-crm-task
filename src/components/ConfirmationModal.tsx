@@ -16,10 +16,10 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <h3>Discard Changes?</h3>
         <p>You have unsaved changes. Are you sure you want to discard them?</p>
         <div className="confirmation-modal-actions">
-          <button onClick={onCancel} className="btn-secondary">
+          <button onClick={onCancel} className="btn-secondary-modal">
             Keep Editing
           </button>
-          <button onClick={onConfirm} className="btn-danger">
+          <button onClick={onConfirm} className="btn-danger-modal">
             Discard
           </button>
         </div>

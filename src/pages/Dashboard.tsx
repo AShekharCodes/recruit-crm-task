@@ -323,8 +323,10 @@ const Dashboard = () => {
                 <header className="assigned-jobs-header">
                   <p>Assigned Job to {candidate?.name}</p>
                   <div className="header-buttons">
-                    <button className="btn btn-primary">Assign to Job</button>
-                    <button className="btn btn-secondary">
+                    <button className="btn btn-primary-dashboard">
+                      Assign to Job
+                    </button>
+                    <button className="btn btn-secondary-dashboard">
                       View all Assigned Jobs
                     </button>
                   </div>

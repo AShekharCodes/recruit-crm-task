@@ -43,8 +43,8 @@
 }
 
 /* Generic Button Styles for this Modal */
-.btn-secondary,
-.btn-danger {
+.btn-secondary-modal,
+.btn-danger-modal {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
@@ -55,18 +55,18 @@
 }
 
 /* Specific Button Styles */
-.btn-secondary {
+.btn-secondary-modal {
   background-color: #6c757d;
   color: white;
 }
-.btn-secondary:hover {
+.btn-secondary-modal:hover {
   background-color: #5a6268;
 }
 
-.btn-danger {
+.btn-danger-modal {
   background-color: #dc3545;
   color: white;
 }
-.btn-danger:hover {
+.btn-danger-modal:hover {
   background-color: #c82333;
 }

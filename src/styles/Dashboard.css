@@ -169,7 +169,7 @@
 }
 
 .main-section .section-header .candidate-counter {
-  font-size: 14px;
+  font-size: 12px;
   color: #343a40;
   background-color: #e9ecef;
   padding: 5px 10px;
@@ -517,16 +517,16 @@
   font-weight: 600;
 }
 
-.btn-primary {
+.btn-primary-dashboard {
   background-color: #2570ca;
   color: white;
   border-color: #007bff;
 }
 
-.btn-secondary {
+.btn-secondary-dashboard {
   background-color: white;
-  color: #2570ca;
-  border-color: #2570ca;
+  color: #6c757d;
+  border-color: #6c757d;
 }
 
 .job-cards-container {

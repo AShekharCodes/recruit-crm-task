@@ -210,10 +210,18 @@ const EditApplicantModal = () => {
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn-cancel" onClick={tryClose}>
+              <button
+                type="button"
+                className="btn-cancel-edit"
+                onClick={tryClose}
+              >
                 Cancel
               </button>
-              <button type="submit" className="btn-submit" disabled={!isDirty}>
+              <button
+                type="submit"
+                className="btn-submit-edit"
+                disabled={!isDirty}
+              >
                 Save Changes
               </button>
             </div>
