@@ -9,6 +9,29 @@
   gap: 15px;
 }
 
+.sidebar-toggler {
+  display: none;
+  border-radius: 50%;
+  border: none;
+}
+
+.sidebar-toggler i {
+  font-size: 24px;
+  color: #143e6f;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-toggler i:hover {
+  color: white;
+}
+
+.sidebar-toggler:hover {
+  background-color: #1170ca; /* Subtle hover effect */
+}
+
 /* Search bar */
 .navbar .searchbar {
   flex-shrink: 1;
@@ -16,6 +39,10 @@
   position: relative;
   display: flex;
   align-items: center;
+}
+
+.sidebar-toggler {
+  display: none;
 }
 
 .navbar .searchbar i {
@@ -37,6 +64,7 @@
 .navbar img {
   height: 30px;
   width: auto;
+  cursor: pointer;
 }
 
 /* User section */
@@ -278,6 +306,12 @@
 }
 .drawer-slide-out {
   animation: slideOut 0.3s ease-out forwards;
+}
+
+@media (max-width: 480px) {
+  .sidebar-toggler {
+    display: block;
+  }
 }
 
 /* Keyframes */

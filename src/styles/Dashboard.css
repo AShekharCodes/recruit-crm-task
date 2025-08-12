@@ -164,6 +164,7 @@
 
 .main-section .section-header .header-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
@@ -253,6 +254,7 @@
 
 .profile-role-location {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   color: #6c757d;
   font-size: 0.9rem;
@@ -530,7 +532,8 @@
 }
 
 .job-cards-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 15px;
 }
 
@@ -868,12 +871,6 @@
     width: 100%;
     justify-content: space-between;
   }
-
-  .job-card-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
 }
 
 /* For mobile devices */
@@ -895,12 +892,15 @@
 
   .main-section .section-header .header-actions {
     width: 100%;
-    justify-content: space-between;
   }
 
   .main-section .section-header .header-actions button {
     font-size: 11px;
     padding: 4px 8px;
+  }
+
+  .main-section .section-header .candidate-counter {
+    font-size: 11px;
   }
 
   .contact-header {
@@ -922,7 +922,7 @@
   }
 
   .header-buttons {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     gap: 8px;
   }
@@ -935,6 +935,20 @@
 
 /* For smaller mobile devices */
 @media (max-width: 480px) {
+  .main-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  .sidebar {
+    width: 0;
+    overflow: hidden; /* Hide content when collapsed */
+    transition: width 0.35s ease-in-out;
+  }
+
+  .sidebar.expanded {
+    width: 200px;
+    overflow: visible; /* Show content when expanded */
+  }
   .profile-name-social {
     flex-direction: column;
     align-items: flex-start;
@@ -970,5 +984,14 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .job-card-content {
+    justify-content: flex-start;
   }
 }

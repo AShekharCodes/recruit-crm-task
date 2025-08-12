@@ -122,7 +122,7 @@ const Dashboard = () => {
         </div>
       </aside>
       <div className="main-container">
-        <Navbar />
+        <Navbar onPress={toggleSidebar} />
         <div className="content-sections">
           <section className="main-section">
             <header className="section-header">

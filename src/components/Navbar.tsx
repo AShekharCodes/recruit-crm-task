@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "../styles/Navbar.css";
 
-const Navbar = () => {
+interface NavbarProps {
+  onPress?: () => void; // Optional prop for handling button press
+}
+
+const Navbar = ({ onPress }: NavbarProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
@@ -32,9 +36,13 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
+        <button className="sidebar-toggler" onClick={onPress}>
+          <i className="bx bx-fast-forward"></i>
+        </button>
         <img
           src="/assets/images/logo.png"
           alt="Logo"
+          onClick={() => (location.href = "/")}
           onError={(e) => {
             e.currentTarget.src =
               "https://placehold.co/100x30/143e6f/ffffff?text=Logo";
