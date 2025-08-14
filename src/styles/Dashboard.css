@@ -11,8 +11,6 @@
 /* Sidebar */
 .sidebar {
   width: 50px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
   background: #143e6f;
   /* Smoother transition */
   transition: width 0.35s ease-in-out;
@@ -114,7 +112,6 @@
 /* Content Sections */
 .content-sections {
   display: flex;
-  height: calc(100vh - 51px); /* Height of navbar */
 }
 
 .main-section {
@@ -457,6 +454,7 @@
 /* Tabs */
 .tab-bar {
   display: flex;
+  padding: 0 10px;
   background-color: #e9ecef;
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -489,7 +487,7 @@
 
 .tab-content {
   padding: 10px;
-  min-height: 300px;
+  min-height: 350px;
   background-color: white;
   font-size: 14px;
   color: #495057;
@@ -592,7 +590,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -715,7 +713,6 @@
 
 .side-section .tab-bar button {
   font-size: 12px;
-  flex-grow: 1;
 }
 
 .side-tab-all {
@@ -974,9 +971,5 @@
   .header-buttons {
     flex-direction: column;
     width: 100%;
-  }
-
-  .job-card-content {
-    justify-content: flex-start;
   }
 }

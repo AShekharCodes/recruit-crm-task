@@ -86,6 +86,7 @@
 .navbar .user-section .action-icons {
   display: flex;
   gap: 15px;
+  align-items: center;
 }
 
 .navbar .user-section .action-icons i {

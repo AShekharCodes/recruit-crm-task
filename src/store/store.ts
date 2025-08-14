@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Applicant } from "../types/applicant";
-import { updateApplicant as updateApplicantService } from "../services/applicant.service";
+import { updateApplicant } from "../services/applicant.service";
 
 interface Store {
   applicants: Applicant[];
@@ -17,7 +17,7 @@ export const useStore = create<Store>((set, get) => ({
   setEditingApplicant: (editingApplicant) => set({ editingApplicant }),
   updateApplicant: async (applicant) => {
     try {
-      const updatedApplicant = await updateApplicantService(applicant);
+      const updatedApplicant = await updateApplicant(applicant);
       const applicants = get().applicants.map((a) =>
         a.id === updatedApplicant.id ? updatedApplicant : a
       );
